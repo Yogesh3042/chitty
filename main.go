@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -54,7 +55,9 @@ type sendMessageReqBody struct {
 }
 
 func main() {
-	http.ListenAndServe(":3000", http.HandlerFunc(Handler))
+	port := ":" + os.Getenv("PORT")
+	fmt.Println(port)
+	http.ListenAndServe(port, http.HandlerFunc(Handler))
 }
 
 func reply(chatID int64, name string, msg string) error {
